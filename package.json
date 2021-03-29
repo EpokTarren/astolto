@@ -1,0 +1,34 @@
+{
+	"name": "astolto",
+	"version": "1.0.0",
+	"description": "Astolfo appraises how uwu your messages are.",
+	"main": "build/index.js",
+	"repository": "https://github.com/EpokTarren/Astolto.git",
+	"author": "EpokTarren",
+	"license": "MIT",
+	"scripts": {
+		"run": "node .",
+		"build": "tsc",
+		"lint": "npx eslint src"
+	},
+	"homepage": "https://github.com/EpokTarren/Astolto#readme",
+	"bugs": {
+		"url": "https://github.com/EpokTarren/Astolto/issues"
+	},
+	"dependencies": {
+		"discord.js": "^12.5.1",
+		"dotenv": "^8.2.0",
+		"string-similarity": "^4.0.4",
+		"uwuifier": "^2.0.4"
+	},
+	"devDependencies": {
+		"@types/node": "^14.14.37",
+		"@typescript-eslint/eslint-plugin": "^4.20.0",
+		"@typescript-eslint/parser": "^4.20.0",
+		"eslint": "^7.23.0",
+		"eslint-config-prettier": "^8.1.0",
+		"eslint-plugin-prettier": "^3.3.1",
+		"prettier": "^2.2.1",
+		"typescript": "^4.2.3"
+	}
+}
