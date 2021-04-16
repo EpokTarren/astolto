@@ -1,5 +1,5 @@
-import { Message, TextChannel } from 'discord.js';
-import { ProtoCommand } from './command';
+import { TextChannel } from 'discord.js';
+import { CommandResolvable } from 'mashujs';
 import { Uwuifier } from 'uwuifier/dist';
 import similarity from 'string-similarity';
 
@@ -43,7 +43,7 @@ function toColour(h: number, s: number, v: number): number {
 }
 
 export = {
-	run: async (message: Message) => {
+	run: async (message) => {
 		const content = message.reference
 			? (
 					await (message.guild.channels.resolve(
@@ -57,7 +57,7 @@ export = {
 				embed: {
 					title: 'Ewwow',
 					description: 'Nyo content to appwaise QwQ',
-					color: 0xff2020,
+					color: colours.error,
 				},
 			});
 		else {
@@ -98,4 +98,4 @@ export = {
 		(p) => `${p}scwutinyise I wuv chu <3`,
 	],
 	description: 'Appraises a replied to message or the text following the command.',
-} as ProtoCommand;
+} as CommandResolvable;

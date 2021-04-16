@@ -4,31 +4,36 @@
 	"description": "Astolfo appraises how uwu your messages are.",
 	"main": "build/index.js",
 	"repository": "https://github.com/EpokTarren/Astolto.git",
-	"author": "EpokTarren",
+	"author": {
+		"name": "Tarren",
+		"email": "me@tarren.moe",
+		"url": "http://tarren.moe"
+	},
 	"license": "MIT",
 	"scripts": {
 		"run": "node .",
 		"build": "tsc",
 		"lint": "npx eslint src"
 	},
-	"homepage": "https://github.com/EpokTarren/Astolto#readme",
+	"homepage": "https://astolto.tarren.moe",
 	"bugs": {
 		"url": "https://github.com/EpokTarren/Astolto/issues"
 	},
 	"dependencies": {
-		"discord.js": "^12.5.1",
+		"discord.js": "^12.5.3",
 		"dotenv": "^8.2.0",
+		"mashujs": "^1.0.1",
 		"string-similarity": "^4.0.4",
 		"uwuifier": "^2.0.4"
 	},
 	"devDependencies": {
-		"@types/node": "^14.14.37",
-		"@typescript-eslint/eslint-plugin": "^4.20.0",
-		"@typescript-eslint/parser": "^4.20.0",
-		"eslint": "^7.23.0",
-		"eslint-config-prettier": "^8.1.0",
-		"eslint-plugin-prettier": "^3.3.1",
+		"@types/node": "^14.14.40",
+		"@typescript-eslint/eslint-plugin": "^4.22.0",
+		"@typescript-eslint/parser": "^4.22.0",
+		"eslint": "^7.24.0",
+		"eslint-config-prettier": "^8.2.0",
+		"eslint-plugin-prettier": "^3.4.0",
 		"prettier": "^2.2.1",
-		"typescript": "^4.2.3"
+		"typescript": "^4.2.4"
 	}
 }

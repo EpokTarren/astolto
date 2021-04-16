@@ -1,5 +1,5 @@
 import { TextChannel } from 'discord.js';
-import { ProtoCommand } from './command';
+import { CommandResolvable } from 'mashujs';
 import { Uwuifier } from 'uwuifier/dist';
 
 const uwu = new Uwuifier({ spaces: { faces: 0, actions: 0, stutters: 0 }, exclamations: 0 });
@@ -18,7 +18,7 @@ export = {
 				embed: {
 					title: 'Ewwow',
 					description: 'Nyo content to convewt QwQ',
-					color: 0xff2020,
+					color: colours.error,
 				},
 			});
 		else
@@ -36,11 +36,11 @@ export = {
 							})`,
 						},
 					],
-					color: 0xff80cc,
+					color: colours.default,
 				},
 			});
 	},
 	name: 'uwufy',
 	description: 'Make a message more uwu~',
 	aliases: ['uwu'],
-} as ProtoCommand;
+} as CommandResolvable;
