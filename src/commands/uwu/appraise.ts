@@ -61,7 +61,7 @@ export = {
 				},
 			});
 		else {
-			const rating = appraise(content);
+			const rating = Math.pow(appraise(content), 1.3);
 			message.channel.send({
 				embed: {
 					title: 'Your appraisal has arrived',
