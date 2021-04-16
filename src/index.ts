@@ -10,8 +10,8 @@ process.env.PREFIX ||= 'a;';
 process.env.HELPFOOTER ||= `${name} v${pkg.version}`;
 process.env.COLOUR ||= '0xff80cc';
 process.env.ERRORCOLOUR ||= '0xff2020';
-process.env.MASHUCOLOR ||= process.env.MASHUCOLOR;
-process.env.MASHUERRORCOLOR ||= process.env.MASHUERRORCOLOR;
+process.env.MASHUCOLOR ||= process.env.COLOUR;
+process.env.MASHUERRORCOLOR ||= process.env.ERRORCOLOUR;
 
 global.colours = {
 	default: Number(process.env.COLOUR),
