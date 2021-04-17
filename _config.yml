@@ -1,0 +1,8 @@
+title: Astolto
+repository: https://github.com/EpokTarren/astolto
+remote_theme: 'EpokTarren/astoltoWeb'
+collections_dir: collections
+collections:
+  categories:
+    output: true
+hue: 324
