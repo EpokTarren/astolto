@@ -1,6 +1,6 @@
 {
 	"name": "astolto",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Astolfo appraises how uwu your messages are.",
 	"main": "build/index.js",
 	"repository": "https://github.com/EpokTarren/Astolto.git",
