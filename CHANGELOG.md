@@ -1,7 +1,7 @@
 # Changelog
 Notable changes to Astolto are documented here.
 
-## [1.1.0] - 2021-04-15
+## [1.1.0] - 2021-04-17
 
 ### Added
 - Footer below help command
