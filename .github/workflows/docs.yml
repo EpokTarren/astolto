@@ -1,0 +1,46 @@
+name: Documentation
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  docs:
+    name: Documentation
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Generate Documentation
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+        run: |
+          cd $GITHUB_WORKSPACE
+
+          npm run docs
+
+          git clone "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" temp -b docs
+
+          cd temp
+
+          rm -rf collections/_categories/
+          mv ../docs/index.md index.md
+          mv ../docs/ collections/_categories/
+
+          rm CHANGELOG.md
+          (echo -e "---\npermalink: changelog\nlayout: default\n---\n" && cat ../CHANGELOG.md) >> CHANGELOG.md
+
+          git add .
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git commit -m "Docs for ${GITHUB_SHA}" || true
+          git push origin docs

@@ -1,0 +1,13 @@
+{
+	"$schema": "./node_modules/mashujs/mashurc.schema.json",
+	"prefix": "a;",
+	"input": "build/commands",
+	"output": "docs",
+	"titles": true,
+	"permalink": true,
+	"descriptions": true,
+	"layout": "default",
+	"readme": "README.md",
+	"homeHeader": "layout: default",
+	"descriptionReplacer": ["build", "src"]
+}

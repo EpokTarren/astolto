@@ -12,7 +12,8 @@
 	"license": "MIT",
 	"scripts": {
 		"run": "node .",
-		"build": "tsc",
+		"build": "npx tsc",
+		"docs": "npx mashujs",
 		"lint": "npx eslint src"
 	},
 	"homepage": "https://astolto.tarren.moe",
