@@ -75,4 +75,5 @@ export = {
 	name: 'Astolfo',
 	aliases: ['Rider'],
 	description: 'Sends a random image from /r/Astolfo.',
+	examples: [(p) => `${p}astolfo`, (p) => `${p}rider`],
 } as CommandResolvable;

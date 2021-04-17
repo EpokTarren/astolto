@@ -43,4 +43,10 @@ export = {
 	name: 'uwufy',
 	description: 'Make a message more uwu~',
 	aliases: ['uwu'],
+	examples: [
+		(p) =>
+			`${p}uwufy Astolfo, Class Name Rider of "Black", is the Rider-class Servant of Celenike Icecolle Yggdmillennia.`,
+		(p) =>
+			`${p}uwu Astolto is an open source Discord bot that will gladly rate how cute your messages are.`,
+	],
 } as CommandResolvable;

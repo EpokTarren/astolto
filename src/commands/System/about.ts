@@ -30,4 +30,5 @@ export = {
 	name: 'About',
 	description: 'Tells you about Astolto.',
 	detailed: 'Sends a rundown explaining what this bot is.',
+	examples: [(p) => `${p}about`],
 } as CommandResolvable;

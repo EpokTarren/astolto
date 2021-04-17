@@ -35,7 +35,7 @@ const notFound: Partial<MessageEmbed> = {
 
 export = {
 	run: async (message, args) => {
-		const version = args[0];
+		const version = args[1];
 		const embed = version ? versions.get(version.replace(/[^\d.]+/g, '')) || notFound : latest;
 		embed.footer = { text: process.env.HELPFOOTER, iconURL: process.env.HELPFOOTERICON };
 		message.channel.send({ embed });
@@ -44,4 +44,5 @@ export = {
 	aliases: ['Changes', 'Changed'],
 	description: 'Display recent changes.',
 	detailed: 'Display changes from the most recent version',
+	examples: [(p) => `${p}changelog`, (p) => `${p}changed v1.1.0`],
 } as CommandResolvable;
