@@ -15,6 +15,7 @@ Provides information about the bot.
 ## About
 
 ### Description
+
 Sends a rundown explaining what this bot is.
 
 ### Examples
@@ -27,6 +28,7 @@ a;about
 ## ChangeLog
 
 ### Description
+
 Display changes from the most recent version
 
 ### Aliases
@@ -37,7 +39,15 @@ Display changes from the most recent version
 ### Examples
 ```
 a;changelog
-a;changed v1.1.0
+a;changed v1.2.0
 ```
+
+### Arguments
+
+#### version(Optional)
+
+Type: String
+Description: The version you want the changelog of.)
+
 
 ---

@@ -16,6 +16,7 @@ Commands that radiate uwu cuteness~
 ## Appraise
 
 ### Description
+
 Appraises a replied to message or the text following the command.
 
 ### Aliases
@@ -40,11 +41,24 @@ a;Rate I wuv chu <3
 a;scwutinyise I wuv chu <3
 ```
 
+### Arguments
+
+#### text(Optional)
+
+Type: String
+Description: The text you want to appraise)
+#### id(Optional)
+
+Type: String
+Description: ID of the message you wish to appraise)
+
+
 ---
 
 ## Astolfo
 
 ### Description
+
 Sends a random image from /r/Astolfo.
 
 ### Aliases
@@ -62,6 +76,7 @@ a;rider
 ## uwufy
 
 ### Description
+
 Make a message more uwu~
 
 ### Aliases
