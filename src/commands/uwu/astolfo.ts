@@ -1,5 +1,5 @@
 import { get } from 'https';
-import { CommandResolvable } from 'mashujs';
+import { IntractableCommand } from 'mashujs';
 
 async function req(url: string): Promise<string> {
 	return new Promise((resolve, reject) =>
@@ -20,8 +20,7 @@ async function getIcon(user: string): Promise<string> {
 		data: { icon_img: string; subreddit: { over_18: boolean } };
 		error?: number;
 	};
-	const avatar =
-		about.error || about.data.subreddit.over_18 ? '' : about.data.icon_img.replace(/\?.+/, '');
+	const avatar = about.error || about.data.subreddit.over_18 ? '' : about.data.icon_img.replace(/\?.+/, '');
 	icons.set(user, avatar);
 	setTimeout(() => icons.delete(user), day);
 	return avatar;
@@ -43,8 +42,7 @@ let updated = 0;
 
 async function updatePosts() {
 	updated = Date.now();
-	posts = (JSON.parse(await req('https://www.reddit.com/r/Astolfo.json?limit=100')).data
-		.children as RedditPost[])
+	posts = (JSON.parse(await req('https://www.reddit.com/r/Astolfo.json?limit=100')).data.children as RedditPost[])
 		.map((post) => post.data)
 		.filter(({ over_18, pinned, url }) => !over_18 && !pinned && url.match(/(png|jpg|jpeg|gif)$/))
 		.map(({ author, title, url, permalink }) => ({
@@ -62,18 +60,21 @@ export = {
 		const { author, title, image, url } = posts[Math.floor(Math.random() * posts.length)];
 		const authorIcon = icons.get(author) ?? (await getIcon(author));
 
-		message.channel.send({
-			embed: {
-				author: { name: '/u/' + author, iconURL: authorIcon || undefined },
-				title,
-				url,
-				image: { url: image },
-				footer: { text: 'Image randomly fetched from /r/Astolfo/' },
-			},
+		message.reply({
+			embeds: [
+				{
+					author: { name: '/u/' + author, iconURL: authorIcon || undefined },
+					title,
+					url,
+					image: { url: image },
+					footer: { text: 'Image randomly fetched from /r/Astolfo/' },
+				},
+			],
 		});
 	},
 	name: 'Astolfo',
 	aliases: ['Rider'],
 	description: 'Sends a random image from /r/Astolfo.',
 	examples: [(p) => `${p}astolfo`, (p) => `${p}rider`],
-} as CommandResolvable;
+	interaction: 'on',
+} as IntractableCommand;

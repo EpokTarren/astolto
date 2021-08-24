@@ -1,43 +1,48 @@
-import { TextChannel } from 'discord.js';
-import { CommandResolvable } from 'mashujs';
+import { IntractableCommand } from 'mashujs';
 import { Uwuifier } from 'uwuifier/dist';
 
 const uwu = new Uwuifier({ spaces: { faces: 0, actions: 0, stutters: 0 }, exclamations: 0 });
+
 export = {
 	run: async (message) => {
-		const content = message.reference
-			? (
-					await (message.guild.channels.resolve(
-						message.reference.channelID
-					) as TextChannel).messages.fetch(message.reference.messageID)
-			  ).content
-			: message.content.replace(/^[^\s]+\s*/, '');
+		const content = message.isMessage()
+			? message.reference
+				? (await message.channel.messages.fetch(message.reference.messageId)).content
+				: message.content.replace(/^[^\s]+\s*/, '')
+			: message.options.getString('text') ??
+			  (await message.channel.messages.fetch(message.options.getString('id')))?.content;
 
 		if (!content)
-			message.channel.send({
-				embed: {
-					title: 'Ewwow',
-					description: 'Nyo content to convewt QwQ',
-					color: colours.error,
-				},
+			message.reply({
+				embeds: [
+					{
+						title: 'Ewwow',
+						description: 'Nyo content to convewt QwQ',
+						color: colours.error,
+					},
+				],
 			});
 		else
-			message.channel.send({
-				embed: {
-					title: 'Your convewtion is complete',
-					description: uwu.uwuifySentence(content),
-					fields: [
-						{
-							name: 'Source',
-							value: `[Original message](https://discord.com/channels/${
-								message?.reference?.guildID || message.guild.id
-							}/${message?.reference?.channelID || message.channel.id}/${
-								message?.reference?.messageID || message.id
-							})`,
-						},
-					],
-					color: colours.default,
-				},
+			message.reply({
+				embeds: [
+					{
+						title: 'Your convewtion is complete',
+						description: uwu.uwuifySentence(content),
+						fields: message.isMessage()
+							? [
+									{
+										name: 'Source',
+										value: `[Original message](https://discord.com/channels/${
+											message.reference?.guildId || message.guild.id
+										}/${message.reference?.channelId || message.channel.id}/${
+											message.reference?.messageId || message.id
+										})`,
+									},
+							  ]
+							: [],
+						color: colours.default,
+					},
+				],
 			});
 	},
 	name: 'uwufy',
@@ -46,7 +51,21 @@ export = {
 	examples: [
 		(p) =>
 			`${p}uwufy Astolfo, Class Name Rider of "Black", is the Rider-class Servant of Celenike Icecolle Yggdmillennia.`,
-		(p) =>
-			`${p}uwu Astolto is an open source Discord bot that will gladly rate how cute your messages are.`,
+		(p) => `${p}uwu Astolto is an open source Discord bot that will gladly rate how cute your messages are.`,
 	],
-} as CommandResolvable;
+	interaction: 'on',
+	interactionArgs: [
+		{
+			type: 'String',
+			name: 'text',
+			description: 'The text you want to convert',
+			required: false,
+		},
+		{
+			type: 'String',
+			name: 'id',
+			description: 'ID of the message you wish to convert',
+			required: false,
+		},
+	],
+} as IntractableCommand;

@@ -21,9 +21,12 @@
 		"url": "https://github.com/EpokTarren/Astolto/issues"
 	},
 	"dependencies": {
-		"discord.js": "^12.5.3",
+		"@discordjs/builders": "^0.5.0",
+		"@discordjs/rest": "^0.1.0-canary.0",
+		"discord-api-types": "^0.22.0",
+		"discord.js": "^13.1.0",
 		"dotenv": "^8.2.0",
-		"mashujs": "^1.0.1",
+		"mashujs": "^2.0.0",
 		"string-similarity": "^4.0.4",
 		"uwuifier": "^2.0.4"
 	},

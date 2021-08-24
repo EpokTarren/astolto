@@ -1,5 +1,4 @@
-import { TextChannel } from 'discord.js';
-import { CommandResolvable } from 'mashujs';
+import { IntractableCommand, Message } from 'mashujs';
 import { Uwuifier } from 'uwuifier/dist';
 import similarity from 'string-similarity';
 
@@ -44,36 +43,38 @@ function toColour(h: number, s: number, v: number): number {
 
 export = {
 	run: async (message) => {
-		const content = message.reference
-			? (
-					await (message.guild.channels.resolve(
-						message.reference.channelID
-					) as TextChannel).messages.fetch(message.reference.messageID)
-			  ).content
-			: message.content.replace(/^[^\s]+\s*/, '');
+		const content = message.isMessage()
+			? message.reference
+				? (await message.channel.messages.fetch(message.reference.messageId)).content
+				: message.content.replace(/^[^\s]+\s*/, '')
+			: message.options.getString('text') ??
+			  (await message.channel.messages.fetch(message.options.getString('id')))?.content;
 
 		if (!content)
-			message.channel.send({
-				embed: {
-					title: 'Ewwow',
-					description: 'Nyo content to appwaise QwQ',
-					color: colours.error,
-				},
+			message.reply({
+				embeds: [
+					{
+						title: 'Ewwow',
+						description: 'Nyo content to appwaise QwQ',
+						color: colours.error,
+					},
+				],
 			});
 		else {
 			const rating = Math.pow(appraise(content), 1.3);
-			message.channel.send({
-				embed: {
-					title: 'Your appraisal has arrived',
-					description:
-						`Astolfo has ruled it a ${Math.round(rating * 100) / 10}/10` +
-						`\n[Original message](https://discord.com/channels/${
-							message?.reference?.guildID || message.guild.id
-						}/${message?.reference?.channelID || message.channel.id}/${
-							message?.reference?.messageID || message.id
-						})`,
-					color: toColour(120 * rating, 0.75, 1),
-				},
+			message.reply({
+				embeds: [
+					{
+						title: 'Your appraisal has arrived',
+						description:
+							`Astolfo has ruled it a ${Math.round(rating * 100) / 10}/10` + message.isMessage()
+								? `\n[Original message](https://discord.com/channels/${message.guild.id}/${
+										(message as Message).reference?.channelId || message.channel.id
+								  }/${(message as Message).reference?.messageId || message.id})`
+								: '',
+						color: toColour(120 * rating, 0.75, 1),
+					},
+				],
 			});
 		}
 	},
@@ -98,4 +99,19 @@ export = {
 		(p) => `${p}scwutinyise I wuv chu <3`,
 	],
 	description: 'Appraises a replied to message or the text following the command.',
-} as CommandResolvable;
+	interaction: 'on',
+	arguments: [
+		{
+			type: 'String',
+			name: 'text',
+			description: 'The text you want to appraise',
+			required: false,
+		},
+		{
+			type: 'String',
+			name: 'id',
+			description: 'ID of the message you wish to appraise',
+			required: false,
+		},
+	],
+} as IntractableCommand;

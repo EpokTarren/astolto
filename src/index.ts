@@ -1,5 +1,6 @@
 import { Client } from 'mashujs';
 import { resolve } from 'path';
+import { Intents } from 'discord.js';
 
 require('dotenv').config();
 
@@ -19,14 +20,16 @@ global.colours = {
 };
 
 const client = new Client({
-	disableMentions: 'everyone',
+	allowedMentions: { parse: ['users'], repliedUser: false },
 	prefix: process.env.PREFIX,
 	dir: resolve(__dirname, 'commands'),
 	owners: process.env.OWNERS?.split(' '),
 	descriptionReplacer: ['build', 'src'],
+	partials: ['CHANNEL'],
+	intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES],
 });
 
-client.on('ready', () => {
+client.once('ready', () => {
 	const { tag } = client.user;
 	const { prefix } = client.handler;
 	const time = Intl.DateTimeFormat('en-GB', {
@@ -42,10 +45,12 @@ client.on('ready', () => {
 
 	process.env.HELPFOOTERICON ||= client.user.avatarURL();
 
-	client.user.setActivity(`Rating messages with ${prefix}appraise`).catch(console.error);
+	client.user.setActivity(`Rating messages with ${prefix}appraise`);
 
 	const loginText = `${process.env.HELPFOOTER} logged in as ${tag} on ${time}.\nServing ${guilds} guilds, with the prefix "${prefix}".`;
 	console.log(loginText);
+
+	client.handler.loadSlashCommands(process.env.TOKEN);
 });
 
 client.login(process.env.TOKEN);

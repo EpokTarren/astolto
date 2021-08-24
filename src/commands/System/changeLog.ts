@@ -1,4 +1,4 @@
-import { CommandResolvable } from 'mashujs';
+import { IntractableCommand } from 'mashujs';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { MessageEmbed } from 'discord.js';
@@ -24,25 +24,36 @@ const versions = readFileSync(resolve(__dirname, '../../../CHANGELOG.md'))
 		acc.set(title, { title: `Changes in v${title}`, fields, color: colours.default });
 		return acc;
 	}, new Map<string, Partial<MessageEmbed>>());
-
-const latest = versions.get(require('../../../package.json').version);
+const versionNames = Array.from(versions, (v) => 'v' + v[0]);
+const { version } = require('../../../package.json');
+const latest = versions.get(version);
 const notFound: Partial<MessageEmbed> = {
 	title: 'Version not found',
-	description:
-		'Versions are ' + Array.from(versions, (v) => 'v' + v[0]).reduce((acc, v) => `${acc}, ${v}`),
+	description: 'Versions are ' + versionNames.reduce((acc, v) => `${acc}, ${v}`),
 	color: colours.error,
 };
 
 export = {
-	run: async (message, args) => {
-		const version = args[1];
+	run: async (message) => {
+		const version = message.options.getString('version');
 		const embed = version ? versions.get(version.replace(/[^\d.]+/g, '')) || notFound : latest;
 		embed.footer = { text: process.env.HELPFOOTER, iconURL: process.env.HELPFOOTERICON };
-		message.channel.send({ embed });
+		message.reply({ embeds: [embed] });
 	},
 	name: 'ChangeLog',
 	aliases: ['Changes', 'Changed'],
 	description: 'Display recent changes.',
 	detailed: 'Display changes from the most recent version',
-	examples: [(p) => `${p}changelog`, (p) => `${p}changed v1.1.0`],
-} as CommandResolvable;
+	examples: [(p) => `${p}changelog`, (p) => `${p}changed v${version}`],
+	interaction: 'on',
+	arguments: [
+		{
+			type: 'String',
+			name: 'version',
+			description: 'The version you want the changelog of.',
+			required: false,
+			choices: versionNames.slice(0, 24).map((name) => ({ name, value: name })),
+		},
+	],
+	parseArgs: true,
+} as IntractableCommand;
