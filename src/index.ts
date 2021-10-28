@@ -50,7 +50,9 @@ client.once('ready', () => {
 	const loginText = `${process.env.HELPFOOTER} logged in as ${tag} on ${time}.\nServing ${guilds} guilds, with the prefix "${prefix}".`;
 	console.log(loginText);
 
-	client.handler.loadSlashCommands(process.env.TOKEN);
+	client.handler
+		.loadSlashCommands(process.env.TOKEN)
+		.then(() => console.log('Registration of slash commands complete.'));
 });
 
 client.login(process.env.TOKEN);
