@@ -1,4 +1,4 @@
-import { IntractableCommand, Message } from 'mashujs';
+import { IntractableCommand } from 'mashujs';
 import { Uwuifier } from 'uwuifier/dist';
 import similarity from 'string-similarity';
 
@@ -44,38 +44,23 @@ function toColour(h: number, s: number, v: number): number {
 export = {
 	run: async (message) => {
 		const content = message.isMessage()
-			? message.reference
-				? (await message.channel.messages.fetch(message.reference.messageId)).content
-				: message.content.replace(/^[^\s]+\s*/, '')
+			? (message.reference?.messageId && (await message.channel.messages.fetch(message.reference.messageId)).content) ??
+			  message.content.replace(/^[^\s]+\s*/, '')
 			: message.options.getString('text') ??
 			  (await message.channel.messages.fetch(message.options.getString('id')))?.content;
 
 		if (!content)
-			message.reply({
-				embeds: [
-					{
-						title: 'Ewwow',
-						description: 'Nyo content to appwaise QwQ',
-						color: colours.error,
-					},
-				],
-			});
+			message.reply({ embeds: [{ title: 'Ewwow', description: 'Nyo content to appwaise QwQ', color: colours.error }] });
 		else {
 			const rating = Math.pow(appraise(content), 1.3);
-			message.reply({
-				embeds: [
-					{
-						title: 'Your appraisal has arrived',
-						description:
-							`Astolfo has ruled it a ${Math.round(rating * 100) / 10}/10` + message.isMessage()
-								? `\n[Original message](https://discord.com/channels/${message.guild.id}/${
-										(message as Message).reference?.channelId || message.channel.id
-								  }/${(message as Message).reference?.messageId || message.id})`
-								: '',
-						color: toColour(120 * rating, 0.75, 1),
-					},
-				],
-			});
+			const color = toColour(120 * rating, 0.75, 1);
+			const description = `Astolto has ruled it a ${Math.round(rating * 100) / 10}/10${
+				message.isMessage() && message.reference?.messageId
+					? `\n[Original message](https://discord.com/channels/${message.guild.id}/${message.reference.channelId}/${message.reference.messageId})`
+					: ''
+			}`;
+
+			message.reply({ embeds: [{ title: 'Your appraisal has arrived', description, color }] });
 		}
 	},
 	name: 'Appraise',
