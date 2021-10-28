@@ -46,11 +46,13 @@ a;scwutinyise I wuv chu <3
 #### text(Optional)
 
 Type: String
-Description: The text you want to appraise)
+
+Description: The text you want to appraise
 #### id(Optional)
 
 Type: String
-Description: ID of the message you wish to appraise)
+
+Description: ID of the message you wish to appraise
 
 
 ---

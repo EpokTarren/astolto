@@ -3,9 +3,10 @@ layout: default
 ---
 
 # Astolto
+
 Astolto is an open source Discord bot that will gladly rate how uwu your messages are~
 
-[Invite](https://discord.com/api/oauth2/authorize?client_id=825845697790214164&permissions=18432&scope=bot)
+[Invite](https://discord.com/oauth2/authorize?client_id=825845697790214164&permissions=84032&scope=bot%20applications.commands)
 
 [Commands](https://astolto.tarren.moe)
 
@@ -27,6 +28,7 @@ npm run build
 ```
 
 Create a .env with your desired settings, example:
+
 ```
 TOKEN="YOUR_TOKEN_HERE"
 PREFIX="a;"
@@ -36,6 +38,7 @@ ERRORCOLOUR="0xff2020"
 ```
 
 Starting
+
 ```sh
 npm run start
 ```

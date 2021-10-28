@@ -39,7 +39,7 @@ Display changes from the most recent version
 ### Examples
 ```
 a;changelog
-a;changed v1.2.0
+a;changed v1.2.1
 ```
 
 ### Arguments
@@ -47,7 +47,8 @@ a;changed v1.2.0
 #### version(Optional)
 
 Type: String
-Description: The version you want the changelog of.)
+
+Description: The version you want the changelog of.
 
 
 ---
