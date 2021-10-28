@@ -2,6 +2,14 @@
 
 Notable changes to Astolto are documented here.
 
+## [1.2.1] - 2021-10-28
+
+Bug fix.
+
+### Changed
+
+- Fix appraisals not showing a score in some cases.
+
 ## [1.2.0] - 2021-08-24
 
 discord.js v13 migration and slash command support.
