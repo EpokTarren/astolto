@@ -36,5 +36,5 @@ ERRORCOLOUR="0xff2020"
 Starting
 
 ```sh
-npm run start
+npm run run
 ```
